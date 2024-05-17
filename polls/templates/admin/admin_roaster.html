@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roster of Professors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+                body {
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            padding: 20px;
+            /* padding-top: 0; */
+        }
+        .sidebar a {
+            color: #f6f6f6;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            color: #adb5bd;
+        }
+        .functionality {
+            background-color: #fff;
+            color: #324851;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .functionality-header {
+            background-color: #26a059;
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            margin: -18px -18px 18px -18px;
+            font-size: 1.2rem;
+        }
+        .main-content {
+            padding-top: 40px;
+        }
+
+        .list-group-item {
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            border: none;
+        }
+      
+        .sidebar .nav-link {
+            color: #ffffff;
+            padding: 10px 15px;
+        }
+       
+        .roster-container {
+            background-color: #f9f9f9; /* Light grey background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sort-options {
+            margin-bottom: 1em;
+        }
+        .sort-options a {
+            color: #26a059; /* Green color to match your sidebar */
+            margin-right: 0.5em;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 0.5em;
+        }
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table tbody tr {
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 0.3em;
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+        }
+        .sort-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1em;
+            width: auto;
+        }
+        .sort-options select {
+            width: auto; /* Auto width to fit the content */
+            min-width: 120px; /* Minimum width you can adjust */
+            max-width: 200px; /* Maximum width to ensure it doesn't get too long */
+            padding: 0.5em; /* Padding for aesthetics */
+            border: 1px solid #ced4da; /* Same border styling as Bootstrap */
+            border-radius: 0.25rem; /* To match Bootstrap's styling */
+        }
+
+        .sort-options label {
+            margin-right: 0.5em;
+            font-weight: bold;
+        }
+
+        #sortby {
+            flex: 1;
+            margin-right: 0.5em;
+            color: #495057;
+            background-color: #fff;
+            border-color: #ced4da;
+            height: calc(2.25rem + 2px);
+            padding: .375rem 1.75rem .375rem .75rem;
+        }
+
+        .btn-success {
+            height: calc(2.25rem + 2px); /* Match the height of select dropdown */
+            padding: .375rem .75rem;
+            font-size: 1rem;
+        }
+
+        /* Style to remove default form control styling */
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #80bdff;
+        }
+
+        /* Adjust the bootstrap button colors */
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h4>Admin Dashboard</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'admin' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_roaster' %}">Roaster</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_salary' %}">Salary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_performance' %}">Performance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"> Logout <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Main content -->
+        <div class="container my-4">
+            <div class="functionality">
+                <!-- <div class="functionality-header"> -->
+                    
+                
+            <!-- Sorting Bar -->
+                <div class="sort-options">
+                    <div style="display: flex; align-items: center;">
+                        <label for="sortby">Sort By:</label>
+                        <select class="form-control" id="sortby" style="margin-right: 10px;" onchange="updateSort(this)">
+                            <option value="id" {% if sort_by == 'id' %}selected{% endif %}>ID(Default)</option>
+                            <option value="name" {% if sort_param == 'name' %}selected{% endif %}>Name</option>
+                            <option value="dept_name" {% if sort_param == 'dept_name' %}selected{% endif %}>Department</option>
+                            <option value="salary" {% if sort_param == 'salary' %}selected{% endif %}>Salary</option>
+                        </select>
+                        
+
+                        
+                    </div>
+
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addInstructorModal">
+                        Add New Instructor
+                    </button>
+                </div>
+
+            
+            <!-- </div> -->
+
+            <!-- Professors Table -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Professor ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for professor in professors %}
+                    <tr>
+                        <td>{{ professor.id }}</td>
+                        <td>{{ professor.name }}</td>
+                        <td>{{ professor.dept_name }}</td>
+                        <td>${{ professor.salary }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- Add Instructor Modal -->
+<div class="modal fade" id="addInstructorModal" tabindex="-1" role="dialog" aria-labelledby="addInstructorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addInstructorModalLabel">New Instructor</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form for adding an instructor goes here -->
+                <form action="{% url 'add_instructor' %}" method="post">
+                    {% csrf_token %}
+                    <!-- Form fields for instructor details -->
+                    <div class="form-group">
+                        <label for="instructor-id">ID</label>
+                        <input type="text" class="form-control" id="instructor-id" name="id" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructor-name">Name</label>
+                        <input type="text" class="form-control" id="instructor-name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructor-name">Department</label>
+                        <input type="text" class="form-control" id="dept_name" name="dept_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="instructor-name">Salary</label>
+                        <input type="number" class="form-control" id="salary" name="salary" required>
+                    </div>
+                    <!-- Include other fields as necessary -->
+                    <button type="submit" class="btn btn-primary">Add Instructor</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script>
+                function updateSort(selectElement) {
+            var value = selectElement.value;
+            var newUrl = new URL(window.location.href);
+            newUrl.searchParams.set('sort', value); // Set the sort query parameter
+            window.location.href = newUrl; // Change the current page to the new URL
+        }
+
+        </script>
+        
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+</div>
+</body>
+</html>
+
+       

@@ -1,0 +1,26 @@
+-----------------Created By Swati---------------------
+  
+MySQL  localhost:3306 ssl  university  SQL :
+
+create table admin(
+id int not null auto_increment,
+user_type varchar(32),
+username varchar(32),
+password varchar(32) not null default '1234',
+primary key(id));
+Query OK, 0 rows affected (0.0339 sec)
+
+
+ MySQL  localhost:3306 ssl  university  SQL > 
+
+insert into admin(user_type,username,password) values ('admin','AB','1234'), ('instructor','BC','2345'), ('student','CD','3456');
+Query OK, 3 rows affected (0.0065 sec)
+
+mysql> select * from admin;
++----+------------+----------+----------+
+| id | user_type  | username | password |
++----+------------+----------+----------+
+|  1 | admin      | AB       | 1234     |
+|  2 | instructor | BC       | 2345     |
+|  3 | student    | CD       | 3456     |
++----+------------+----------+----------+

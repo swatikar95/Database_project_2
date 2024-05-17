@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-size: 0.9rem;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #26a059;
+            color: #f6f6f6;
+            padding: 20px;
+        }
+        .sidebar a {
+            color: #f6f6f6;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            color: #adb5bd;
+        }
+        .functionality {
+            background-color: #fff;
+            color: #324851;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .functionality-header {
+            background-color: #26a059;
+            color: #fff;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            margin: -18px -18px 18px -18px;
+            font-size: 1.2rem;
+        }
+        .functionality-header-link {
+            text-decoration: none; /* Removes underline from links */
+            color: inherit; /* Inherits the text color from the parent */
+            display: block; /* Makes the link block-level for full-width click area */
+        }
+        .functionality-header-link:hover,
+.functionality-header-link:focus {
+    text-decoration: none; /* This ensures the underline doesn't reappear on hover/focus */
+}
+        .main-content {
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <h5>Admin Dashboard</h5>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'admin' %}">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_roaster' %}">Roaster</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_salary' %}">Salary</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'admin_performance' %}">Performance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout"> Logout <i class="fas fa-sign-out-alt"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 main-content">
+                <div class="functionality">
+                    <a href="{% url 'admin_roaster' %}" class="functionality-header-link">
+                    <div class="functionality-header">
+                        F1. Roster
+                    </div>
+                </a>
+                    <p>Create a list of professors and sort the list by one of the following criteria:</p>
+                    <ul>
+                        <li>By Name</li>
+                        <li>By Department</li>
+                        <li>By Salary</li>
+                    </ul>
+                    
+                </div>
+                <div class="functionality">
+                    <a href="{% url 'admin_salary' %}" class="functionality-header-link">
+                    <div class="functionality-header">
+                        F2. Salary
+                    </div>
+                </a>
+                    <p>Create a table on:</p>
+                    <ul>
+                        <li>Min Salaries by Department</li>
+                        <li>Max Salaries by Department</li>
+                        <li>Average Salaries by Department</li>
+                    </ul>
+                    <!-- min/max/average salaries... -->
+                </div>
+                <div class="functionality">
+                    <a href="{% url 'admin_performance' %}" class="functionality-header-link">
+                    <div class="functionality-header">
+                        F3. Performance
+                    </div>
+                    </a>
+                    <p>Given a professor's name, an academic year, and a semester, show the following for the professor: </p>
+                    <ul>
+                        <li>The number of course sections taught during the semester</li>
+                        <li>The number of students taught</li>
+                        <li>The total dollar amount of funding the professor has secured</li>
+                        <li>The total number of papers the professor has published</li>
+                    </ul>
+                    <!-- Additional form elements and scripting needed -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

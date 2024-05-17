@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roster of Professors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+                body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            padding: 20px;
+            /* padding-top: 0; */
+        }
+        .sidebar a {
+            color: #f6f6f6;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            color: #adb5bd;
+        }
+        .functionality {
+            background-color: #fff;
+            color: #324851;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .functionality-header {
+            background-color: #26a059;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+        }
+        .main-content {
+            padding-top: 40px;
+        }
+
+        .list-group-item {
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            border: none;
+        }
+      
+        .sidebar .nav-link {
+            color: #ffffff;
+            padding: 10px 15px;
+        }
+       
+        .roster-container {
+            background-color: #f9f9f9; /* Light grey background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sort-options {
+            margin-bottom: 1em;
+        }
+        .sort-options a {
+            color: #26a059; /* Green color to match your sidebar */
+            margin-right: 0.5em;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 0.5em;
+        }
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table tbody tr {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 0.5em;
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h4>Admin Dashboard</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'admin' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_roaster' %}">Roaster</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Salary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_performance' %}">Performance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"> Logout <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Main content -->
+        <div class="container my-4">
+            <div class="functionality">
+                <!-- <div class="functionality-header"> -->
+                
+            
+            
+
+            <!-- Professors Table -->
+            <!-- <h1>Salary Overview by Department</h1> -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Department</th>
+                        <th>Min Salary</th>
+                        <th>Max Salary</th>
+                        <th>Average Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for salary in salary_data %}
+                    <tr>
+                        <td>{{ salary.dept_name }}</td>
+                        <td>${{ salary.min_salary }}</td>
+                        <td>${{ salary.max_salary }}</td>
+                        <td>${{ salary.avg_salary|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>
+
+       
+
+

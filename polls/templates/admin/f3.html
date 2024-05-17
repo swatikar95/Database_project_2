@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roster of Professors</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+                body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            padding: 20px;
+            /* padding-top: 0; */
+        }
+        .sidebar a {
+            color: #f6f6f6;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            color: #adb5bd;
+        }
+        .functionality {
+            background-color: #fff;
+            color: #324851;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        .functionality-header {
+            background-color: #26a059;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            margin: -20px -20px 20px -20px;
+        }
+        .main-content {
+            padding-top: 40px;
+        }
+
+        .list-group-item {
+            background-color: #26a059; /* Adjust the green shade as needed */
+            color: #ffffff;
+            border: none;
+        }
+      
+        .sidebar .nav-link {
+            color: #ffffff;
+            padding: 10px 15px;
+        }
+       
+        .roster-container {
+            background-color: #f9f9f9; /* Light grey background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 10px rgba(0,0,0,0.1);
+        }
+        
+        .sort-options {
+            margin-bottom: 1em;
+        }
+        .sort-options a {
+            color: #26a059; /* Green color to match your sidebar */
+            margin-right: 0.5em;
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0 0.5em;
+        }
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table tbody tr {
+            background-color: #fff;
+            border-radius: 10px;
+            margin-bottom: 0.5em;
+            box-shadow: 0px 3px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <nav class="col-md-2 d-none d-md-block sidebar">
+            <div class="sidebar-sticky">
+                <h5>Admin Dashboard</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'admin' %}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_roaster' %}">Roaster</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_salary' %}">Salary</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin_performance' %}">Performance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout"> Logout <i class="fas fa-sign-out-alt"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Main content -->
+        <div class="container my-4">
+            <div class="functionality">
+                <!-- <div class="functionality-header"> -->
+                    <form method="POST" action="{% url 'admin_performance' %}">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="id_professor_name">Professor Name:</label>
+                                <input type="text" class="form-control" id="id_professor_name" name="professor_name" placeholder="Professor name">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="id_year">Year:</label>
+                                <input type="text" class="form-control" id="id_year" name="year" placeholder="Academic year">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="id_semester">Semester:</label>
+                                <input type="text" class="form-control" id="id_semester" name="semester" placeholder="Semester">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="background-color: #26a059; border-color: #26a059;">Search</button>
+                    </form>
+                <!-- Professors Table -->
+                <!-- <h1>Salary Overview by Department</h1> -->
+                <!--
+                    T.student_id, S.course_id, S.sec_id, S.semester, S.year 
+                -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>course sections</th>
+                        <th>number of students</th>
+                        <th>total funding</th>
+                        <th>papers published</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ results.courses_taught }}</td>
+                        <td>{{ results.total_students_taught }}</td>
+                        <td>{{ results.total_funding_saved }}</td>
+                        <td>{{ results.papers_published }}</td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+
+
+    <!-- /#wrapper -->
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
+</body>
+</html>

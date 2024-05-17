@@ -1,0 +1,8 @@
+alter table instructor add column password varchar (32) NOT NULL;
+
+update instructor set password='abc@123' where id =12371;
+update instructor set password='abc@123' where id =21433;
+update instructor set password='abc@123' where id =45678;
+update instructor set password='abc@123' where id =45679;
+update instructor set password='abc@123' where id =12345;
+update instructor set password='abc@123' where id =12370;

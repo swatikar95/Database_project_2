@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>University Management System Login</title>
+    {% load static %}
+    <!-- Bootstrap CSS for styling -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background: url('{% static "1-scaled.jpg" %}') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: inherit;
+            filter: blur(10px);
+            z-index: -1;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+            z-index: 1;
+        }
+        .login-header {
+            background-color: #26a059; /* Soft green color */
+            color: #fff;
+            padding: 20px;
+            font-size: 1.5rem;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .login-form {
+            padding: 25px;
+        }
+        .login-button {
+            background-color: #26a059; /* Soft green color */
+            border: none;
+            color: #fff;
+            padding: 10px;
+            font-size: 1.1rem;
+            border-radius: 0 0 8px 8px;
+            cursor: pointer;
+        }
+        .login-button:hover {
+            background-color: #76b476;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .checkbox label {
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            University Management System
+        </div>
+        <form class="login-form" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <select class="form-control" id="login-as" name="login_as">
+                    <option value="">Select Login As</option>
+                    <option value="admin">Admin</option>
+                    <option value="instructor">Instructor</option>
+                    <option value="student">Student</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="admin_name" name="admin_name" placeholder="ID" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+            <button type="submit" class="login-button btn-block">LOG IN</button>
+        </form>
+        {% if error %}
+    <div style="color: red;">{{ error }}</div>
+        {%endif %}
+    </div>
+    <!-- Bootstrap JS and Popper.js, for Dropdown functionality -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

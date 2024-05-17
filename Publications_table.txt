@@ -1,0 +1,17 @@
+create table Publications
+(
+publication_id varchar(2),
+Authors_id varchar(5),
+Title varchar(100),
+CoAuthors varchar(50),
+typeofPub varchar(20),
+journalName varchar(20),
+volumes varchar(15),
+Pages int,
+DateofPub date,
+primary key (publication_id),
+foreign key (Authors_id) references Instructor(id));
+
+insert into Publications values
+('01','12345','Interactions of Computer','Hou,Liu,York','Journal','Research magazine','volume 3','240','2022-09-23'),
+('05','54545','Various Types of Computers','Liu,TAMON','Journal','American magazine','volume 1','190','2019-03-04');

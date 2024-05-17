@@ -1,0 +1,16 @@
+create table Research
+(
+project_id varchar(3),
+pid varchar(5),
+startdate date,
+enddate date,
+funding_source varchar(20),
+amount int,
+primary key (project_id),
+foreign key (pid) references Instructor(id),
+constraint check_date check (startdate < enddate and enddate >= startdate));
+
+insert into Research values
+('CS9', '12345', '2021-08-23','2023-06-10','research council',40000),
+('EE4', '54545', '2019-01-12','2024-03-01','research council',35000),
+('MA6', '23456', '2022-06-23','2025-05-30','research council',30000);
